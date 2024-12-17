@@ -1,0 +1,15 @@
+name: code_learn
+packages:
+    - apps/** # For Flutter applications
+    - packages/** # For Dart or Flutter packages
+
+scripts:
+    analyze:
+        run: flutter analyze .
+        description: Run static code analysis.
+    clean:
+        run: flutter clean
+        description: Clean all projects.
+    get:
+        run: flutter pub get
+        description: Fetch dependencies for all projects.

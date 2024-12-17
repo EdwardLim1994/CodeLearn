@@ -1,0 +1,8 @@
+.env
+/data/*/**
+/*/**/node_modules
+/*/**/dist
+/*/**/build
+/*/**/.angular
+/*/**/.fvm
+/*/**/.dart_tool

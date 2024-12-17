@@ -1,0 +1,75 @@
+services:
+    surreal:
+        image: surrealdb/surrealdb:latest
+        container_name: surrealdb
+        ports:
+            - 8000:8000
+        volumes:
+            - ./data/surreal:/mydata
+        restart: unless-stopped
+        command:
+            - start
+            - --user=${SURREALDB_USER}
+            - --pass=${SURREALDB_PASSWORD}
+            - --log=trace
+        networks:
+            - codelearn
+
+    meilisearch:
+        image: getmeili/meilisearch:latest
+        container_name: meilisearch
+        ports:
+            - 7700:7700
+        volumes:
+            - ./data/meili:/meili_data
+        environment:
+            MEILI_MASTER_KEY: "${MEILISEARCH_MASTER_KEY}"
+        networks:
+            - codelearn
+        restart: unless-stopped
+
+    rabbitmq:
+        image: rabbitmq:latest
+        container_name: rabbitmq
+        restart: unless-stopped
+        command: rabbitmq-plugins enable rabbitmq_management
+        environment:
+            RABBITMQ_DEFAULT_USER: "${RABBITMQ_USER}"
+            RABBITMQ_DEFAULT_PASS: "${RABBITMQ_PASSWORD}"
+        ports:
+            - "15672:15672"
+            - "5672:5672"
+        volumes:
+            - ./data/rabbit:/var/lib/rabbitmq/
+        networks:
+            - codelearn
+
+    pocketbase:
+        image: spectado/pocketbase:latest
+        container_name: pocketbase
+        ports:
+            - 8090:8090
+        volumes:
+            - ./data/pocket:/pb/pb_data
+            - ./data/pocket/pb_public:/pb/pb_public
+            - ./data/pocket/pb_migrations:/pb/pb_migrations
+            - ./data/pocket/pb_hooks:/pb/pb_hooks
+        command: ["serve", "--http=0.0.0.0:8080", "--dir=/pb/pb_data"]
+        restart: unless-stopped
+        networks:
+            - codelearn
+
+    redis:
+        image: redis:latest
+        container_name: redis
+        ports:
+            - 6379:6379
+        command: redis-server --save 20 1 --loglevel warning --requirepass "${REDIS_PASSKEY}"
+        volumes:
+            - ./data/redis:/var/lib/redis/data
+        restart: unless-stopped
+        networks:
+            - codelearn
+
+networks:
+    codelearn:
