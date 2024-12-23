@@ -1,3 +1,7 @@
 {
-	"dart.flutterSdkPath": "apps/.fvm/versions/3.27.0/"
+	"dart.flutterSdkPath": "apps/.fvm/versions/3.27.0/",
+	"sonarlint.connectedMode.project": {
+		"connectionId": "edwardlim1994",
+		"projectKey": "EdwardLim1994_CodeLearn"
+	}
 }
