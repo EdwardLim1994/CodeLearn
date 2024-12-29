@@ -12,15 +12,7 @@ class BottomNavigationWidget extends StatelessWidget {
   void _onTap(int index) {
     _controller.setCurrentIndex(index);
 
-    switch (index) {
-      case 0:
-        Get.toNamed("/");
-        break;
-
-      case 1:
-        Get.toNamed("/profile");
-        break;
-    }
+    Get.toNamed(items[index].route);
   }
 
   @override

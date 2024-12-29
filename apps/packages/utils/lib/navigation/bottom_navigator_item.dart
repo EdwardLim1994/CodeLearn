@@ -7,6 +7,7 @@ class BottomNavigatorItem extends NavigatorItem {
     required super.icon,
     required super.page,
     required super.route,
+    super.bindings,
   }) {
     super.key = ValueKey("bottom-navigator-$label");
   }
